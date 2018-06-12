@@ -31,3 +31,7 @@ dependencies {
     implementation 'com.google.api-client:google-api-client:1.23.0'
     implementation 'com.google.http-client:google-http-client-android:1.23.0'
 }
+
+appengine {  // App Engine tasks configuration
+    tools.cloudSdkHome="/Users/carlos/Library/Google/google-cloud-sdk"
+}
