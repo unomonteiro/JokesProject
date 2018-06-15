@@ -1,16 +1,14 @@
 package com.udacity.gradle.builditbigger;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import io.monteirodev.jokedisplay.JokeActivity;
-import io.monteirodev.jokelib.JokesLib;
 
 import static io.monteirodev.jokedisplay.JokeActivity.EXTRA_JOKE;
 
@@ -47,15 +45,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        launchJokeDisplayIntent();
+        requestCloudJoke();
     }
 
-    private void launchJokeDisplayIntent() {
-        String wizardJoke = new JokesLib().getJoke();
-        if (!TextUtils.isEmpty(wizardJoke)) {
-            Intent jokeDisplayIntent = new Intent(this, JokeActivity.class);
-            jokeDisplayIntent.putExtra(EXTRA_JOKE, wizardJoke);
-            startActivity(jokeDisplayIntent);
-        }
+    /** https://stackoverflow.com/a/29103920/6997703 */
+    @SuppressLint("StaticFieldLeak")
+    private void requestCloudJoke() {
+        new EndpointsAsyncTask(){
+            @Override
+            protected void onPostExecute(String result) {
+                launchJokeDisplayIntent(result);
+            }
+        }.execute();
+    }
+
+    private void launchJokeDisplayIntent(String joke) {
+        Intent jokeDisplayIntent = new Intent(this, JokeActivity.class);
+        jokeDisplayIntent.putExtra(EXTRA_JOKE, joke);
+        startActivity(jokeDisplayIntent);
     }
 }

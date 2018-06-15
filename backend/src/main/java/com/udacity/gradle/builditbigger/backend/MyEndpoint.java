@@ -6,6 +6,8 @@ import com.google.api.server.spi.config.ApiNamespace;
 
 import javax.inject.Named;
 
+import io.monteirodev.jokelib.JokesLib;
+
 /** An endpoint class we are exposing */
 @Api(
         name = "myApi",
@@ -26,5 +28,11 @@ public class MyEndpoint {
 
         return response;
     }
-
+    /** A simple endpoint method that gets a Joke and returns it back */
+    @ApiMethod(name = "getJoke")
+    public MyBean getJoke() {
+        MyBean response = new MyBean();
+        response.setData(new JokesLib().getJoke());
+        return response;
+    }
 }
