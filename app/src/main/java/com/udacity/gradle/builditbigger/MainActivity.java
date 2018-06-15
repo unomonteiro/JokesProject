@@ -1,13 +1,18 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import io.monteirodev.jokedisplay.JokeActivity;
 import io.monteirodev.jokelib.JokesLib;
+
+import static io.monteirodev.jokedisplay.JokeActivity.EXTRA_JOKE;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,9 +47,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        String joke = new JokesLib().getJoke();
-        Toast.makeText(this, joke, Toast.LENGTH_LONG).show();
+        launchJokeDisplayIntent();
     }
 
-
+    private void launchJokeDisplayIntent() {
+        String wizardJoke = new JokesLib().getJoke();
+        if (!TextUtils.isEmpty(wizardJoke)) {
+            Intent jokeDisplayIntent = new Intent(this, JokeActivity.class);
+            jokeDisplayIntent.putExtra(EXTRA_JOKE, wizardJoke);
+            startActivity(jokeDisplayIntent);
+        }
+    }
 }
