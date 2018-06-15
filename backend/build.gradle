@@ -33,5 +33,7 @@ dependencies {
 }
 
 appengine {  // App Engine tasks configuration
-    tools.cloudSdkHome="/Users/carlos/Library/Google/google-cloud-sdk"
+    Properties local = new Properties()
+    local.load(project.rootProject.file('local.properties').newDataInputStream())
+    tools.cloudSdkHome=local.getProperty('gcloud.dir')
 }
