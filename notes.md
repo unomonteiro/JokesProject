@@ -29,3 +29,5 @@ find `gcloud-sdk-path` by running
 in the terminal.
 
 Documentation here: https://cloud.google.com/appengine/docs/flexible/java/gradle-reference#global_properties
+
+https://github.com/googleads/googleads-mobile-android-examples/tree/master/java/admob/InterstitialExample
