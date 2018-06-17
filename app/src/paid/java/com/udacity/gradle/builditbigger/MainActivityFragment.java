@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import io.monteirodev.jokedisplay.JokeActivity;
 
@@ -19,6 +20,8 @@ import static io.monteirodev.jokedisplay.JokeActivity.EXTRA_JOKE;
  */
 public class MainActivityFragment extends Fragment {
 
+    private ProgressBar mProgressBar;
+
     public MainActivityFragment() {
     }
 
@@ -27,6 +30,7 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
+        mProgressBar = root.findViewById(R.id.progressBar);
         Button jokeButton = root.findViewById(R.id.joke_button);
         jokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,9 +43,11 @@ public class MainActivityFragment extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     private void requestCloudJoke() {
+        mProgressBar.setVisibility(View.VISIBLE);
         new EndpointsAsyncTask(){
             @Override
             protected void onPostExecute(String result) {
+                mProgressBar.setVisibility(View.GONE);
                 launchJokeDisplayIntent(result);
             }
         }.execute();
