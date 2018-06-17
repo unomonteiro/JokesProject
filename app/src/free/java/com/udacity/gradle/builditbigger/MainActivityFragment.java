@@ -46,7 +46,7 @@ public class MainActivityFragment extends Fragment {
         });
 
         // github.com/googleads/googleads-mobile-android-examples/ ... /InterstitialExample
-        MobileAds.initialize(getContext(), "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(getContext(), getString(R.string.ca_app_pub));
         // Create the InterstitialAd and set the adUnitId.
         interstitialAd = new InterstitialAd(getContext());
         // Defined in res/values/strings.xml

@@ -30,4 +30,29 @@ in the terminal.
 
 Documentation here: https://cloud.google.com/appengine/docs/flexible/java/gradle-reference#global_properties
 
+# Interstitial Example
+
 https://github.com/googleads/googleads-mobile-android-examples/tree/master/java/admob/InterstitialExample
+
+# review notes
+
+``` java 
+	public void testSomething(){
+	final CountDownLatch signal = new CountDownLatch(1);
+	Service.doSomething(new Callback() {
+
+	  @Override
+	  public void onResponse(){
+	    // test response data
+	    // assertEquals(..
+	    // assertTrue(..
+	    // etc
+	    signal.countDown();// notify the count down latch
+	  }
+
+	});
+	signal.await();// wait for callback
+	}
+```
+
+Please refer : https://stackoverflow.com/questions/2321829/android-asynctask-testing-with-android-test-framework
