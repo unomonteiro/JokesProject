@@ -20,3 +20,16 @@ allprojects {
         google()
     }
 }
+
+task runAppTests {
+    description = "Start server, runs tests, stop server."
+    doFirst {
+        println("Tests starting...")
+    }
+    dependsOn = [':backend:appengineStart', ':app:connectedAndroidTest']
+    finalizedBy ':backend:appengineStop'
+    tasks.findByPath(':app:connectedAndroidTest').mustRunAfter(':backend:appengineStart')
+    doLast {
+        println("Tests successful.")
+    }
+}
